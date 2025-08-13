@@ -30,3 +30,25 @@ app.use("/test", (req, res) => {
 app.listen(3000, () => {
     console.log("Server Start")
 })
+
+// *-----------------------------------------------------------------------------------------------------------*//
+// *--MULTIPLE ROUTE HANDLER----*//
+
+
+// * app.use("/route",[rH,rH2],rH3,rH4)
+
+app.use("/route", (req, res) => {
+    //? Route Handler
+})
+
+app.use("/play", (req, res, next) => {
+    console.log("First Route Handler")
+    // res.send("Response 1");
+    next();
+},(req,res,next)=>{
+    console.log("Second Route Handler");
+    res.send("Response 2")
+},(req,res,next)=>{
+    console.log("Second Route Handler");
+    res.send("Response 2")
+})
