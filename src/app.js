@@ -16,9 +16,7 @@ app.get("/user", (req, res) => {
     res.send({ first_name: "Subhashis", last_name: "Bhanj Deo" });
 })
 
-app.post("/user", (req, res) => {
-    res.send("DATA IS SAVED");
-})
+
 
 
 //* THis is match all the HTTP method API
@@ -41,14 +39,29 @@ app.use("/route", (req, res) => {
     //? Route Handler
 })
 
+// ?GET /play => Middlewire chain => requestHandler(The Function actually sending the request)
+
 app.use("/play", (req, res, next) => {
     console.log("First Route Handler")
-    // res.send("Response 1");
     next();
-},(req,res,next)=>{
+    res.send("Response 1");
+
+}, (req, res, next) => {
     console.log("Second Route Handler");
     res.send("Response 2")
-},(req,res,next)=>{
-    console.log("Second Route Handler");
+    // next();
+}, (req, res, next) => {
+    console.log("Third Route Handler");
     res.send("Response 2")
+    // next();
+})
+
+// ? If res.send() Doesn't Present it will go to infinite loop .
+// ? If next() --If next routeHandler not present in will give Cannot GET /
+
+const { adminAuth, userAuth } = require("./middlewares/auth")
+app.use("/admin", adminAuth)
+
+app.use("/userr", userAuth, (req, res) => {
+    res.send("DATA IS SAVED");
 })
