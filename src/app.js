@@ -65,3 +65,20 @@ app.use("/admin", adminAuth)
 app.use("/userr", userAuth, (req, res) => {
     res.send("DATA IS SAVED");
 })
+
+// * ERROR HANDLING app.use("/",err,req,res,next)
+
+app.use("/",(err,req,res,next)=>{
+if (err){
+    // Log error
+    res.status(500).send("Something Went Wrong")
+}
+})
+
+// app.use((req, res) => {
+//     res.status(404).send("Route not found");
+// });
+
+app.get('/', (req, res) => {
+  throw new Error('BROKEN') // Express will catch this on its own.
+})
