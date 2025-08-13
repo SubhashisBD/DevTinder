@@ -6,16 +6,17 @@ const app = express();
 //     res.send("Hey There!")
 // })
 
-app.use("/user",(req,res)=>{
+app.use("/user/:userId", (req, res) => {
+    console.log(req.params)
     res.send("Iam EveryWhere")
 })
 
 //* This will only handle get call to user
-app.get("/user",(req,res)=>{
-    res.send({first_name:"Subhashis",last_name:"Bhanj Deo"});
+app.get("/user", (req, res) => {
+    res.send({ first_name: "Subhashis", last_name: "Bhanj Deo" });
 })
 
-app.post("/user",(req,res)=>{
+app.post("/user", (req, res) => {
     res.send("DATA IS SAVED");
 })
 
