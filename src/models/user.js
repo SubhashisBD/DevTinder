@@ -2,22 +2,45 @@ const mongoose = require("mongoose")
 
 const userSchema = mongoose.Schema({
     firstName: {
-        type: String
+        type: String,
+        required: true,
+        minLenght:3,
+        maxLength:15
     },
     lastName: {
-        type: String
+        type: String,
+        minLenght:3,
+        maxLength:15
     },
     emailId: {
-        type: String
+        type: String,
+        lowercase: true,
+        required: true,
+        unique: true,
+        trim: true,
     },
     password: {
         type: String
     },
     gender: {
-        type: String
-    }
-});
+        type: String,
+        // *For validate it will work on new user but for old we have to enabled it.
+        validate(value) {
+            if (!["male", "female", "other"].includes(value)) {
+                throw new Error("Not a Valid Gender")
+            }
+        }
+    },
+    about: {
+        type: String,
+        default: "This is a default about Section"
+    },
+},
+    {
+        timestamps: true
+    },
+);
 
-const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
