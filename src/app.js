@@ -32,9 +32,9 @@ app.post("/signup", async (req, res) => {
 //* ----------------GET user by Name------------
 
 app.get('/user', async (req, res) => {
-    const name =  req.body.firstName
+    const name = req.body.firstName
     try {
-        const user =await User.find({ firstName: name});
+        const user = await User.find({ firstName: name });
         if (user.length === 0) {
             res.send("NO User in the DB")
         }
@@ -66,27 +66,30 @@ app.get('/feed', async (req, res) => {
 
 // * ---------DELETE API---------------
 
-app.delete("/user", async (req,res)=>{
+app.delete("/user", async (req, res) => {
     const userId = req.body.userId;
-    try{
+    try {
         const user = await User.findByIdAndDelete(userId)
         res.send("SUCCESSFULLY DELETED");
     }
-    catch(err){
+    catch (err) {
         res.send("ERROR")
     }
 })
 
 // *-------UPDATE API--------------
-app.patch("/user",async (req,res)=>{
+app.patch("/user", async (req, res) => {
 
     const userId = req.body.userId
-    try{
-        const user = await User.findByIdAndUpdate(userId,req.body)
+    try {
+        const user = await User.findByIdAndUpdate(userId, req.body,{
+            runValidators: true,
+        })
+
         res.send("Successfull✅");
         console.log(user);
     }
-    catch(err){
+    catch (err) {
         res.send("ERROR  ❌")
     }
 })
