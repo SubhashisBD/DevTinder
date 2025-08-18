@@ -29,11 +29,72 @@ app.post("/signup", async (req, res) => {
     }
 })
 
+//* ----------------GET user by Name------------
+
+app.get('/user', async (req, res) => {
+    const name =  req.body.firstName
+    try {
+        const user =await User.find({ firstName: name});
+        if (user.length === 0) {
+            res.send("NO User in the DB")
+        }
+        res.send(user)
+        console.log("Successful ✅")
+    }
+    catch (err) {
+        res.send("ERROR")
+    }
+})
+
+// *---------------- ALL DATA ---------------
+
+app.get('/feed', async (req, res) => {
+
+    try {
+
+        const user = await User.find({})
+        if (user.length === 0) {
+            res.send("NO User in the DB")
+        }
+        res.send(user)
+        console.log("Successful ✅")
+    }
+    catch (err) {
+        res.send("ERROR")
+    }
+})
+
+// * ---------DELETE API---------------
+
+app.delete("/user", async (req,res)=>{
+    const userId = req.body.userId;
+    try{
+        const user = await User.findByIdAndDelete(userId)
+        res.send("SUCCESSFULLY DELETED");
+    }
+    catch(err){
+        res.send("ERROR")
+    }
+})
+
+// *-------UPDATE API--------------
+app.patch("/user",async (req,res)=>{
+
+    const userId = req.body.userId
+    try{
+        const user = await User.findByIdAndUpdate(userId,req.body)
+        res.send("Successfull✅");
+        console.log(user);
+    }
+    catch(err){
+        res.send("ERROR  ❌")
+    }
+})
 
 connectDB()
     .then(() => {
-        console.log("Database Connected SuccessFully");
-        app.listen(3000, () => {
+        console.log("Database Connected SuccessFully ✅");
+        app.listen(7777, () => {
             console.log("Server Start")
         })
 
