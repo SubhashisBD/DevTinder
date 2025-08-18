@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema({
         type: String,
         default: "This is a default about Section"
     },
+    skills:{
+        type:[String]
+    },
+    age:{
+        type:Number
+    }
 },
     {
         timestamps: true

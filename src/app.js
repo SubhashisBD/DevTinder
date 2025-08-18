@@ -29,7 +29,7 @@ app.post("/signup", async (req, res) => {
     }
 })
 
-//* ----------------GET user by Name------------
+// ----------------GET user by Name------------
 
 app.get('/user', async (req, res) => {
     const name = req.body.firstName
@@ -46,7 +46,7 @@ app.get('/user', async (req, res) => {
     }
 })
 
-// *---------------- ALL DATA ---------------
+// ---------------- ALL DATA ---------------
 
 app.get('/feed', async (req, res) => {
 
@@ -64,7 +64,7 @@ app.get('/feed', async (req, res) => {
     }
 })
 
-// * ---------DELETE API---------------
+//  ---------DELETE API---------------
 
 app.delete("/user", async (req, res) => {
     const userId = req.body.userId;
@@ -77,12 +77,24 @@ app.delete("/user", async (req, res) => {
     }
 })
 
-// *-------UPDATE API--------------
+// -------UPDATE API--------------
 app.patch("/user", async (req, res) => {
 
-    const userId = req.body.userId
+    const userId = req.body.userId;
+    const data = req.body;
     try {
-        const user = await User.findByIdAndUpdate(userId, req.body,{
+        const ALLOWED_UPDATES = ["gender", "userId","age","skills"];
+        const is_allowed = Object.keys(data).every((k) => ALLOWED_UPDATES.includes(k));
+
+        if (!is_allowed) {
+            throw new Error("Update not Possible ");
+        }
+
+        if (data?.skills.length > 10) {
+            throw new Error("Skills Should not increase to more than 10")
+        }
+
+        const user = await User.findByIdAndUpdate(userId, data, {
             runValidators: true,
         })
 
@@ -90,7 +102,7 @@ app.patch("/user", async (req, res) => {
         console.log(user);
     }
     catch (err) {
-        res.send("ERROR  ❌")
+        res.send("ERROR  ❌" + err.message)
     }
 })
 
