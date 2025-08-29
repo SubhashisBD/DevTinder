@@ -5,9 +5,12 @@ const connectDB = require("./config/database")
 const User = require("./models/user")
 const { validateSignUpData } = require("./utils/validations")
 const bcrypt = require("bcrypt");
+
+// TO read the cookies from req.cookies we need cookie-parser
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken")
 
+// We use express.json() bcz we parse it to json for reading the req.body
 app.use(express.json())
 app.use(cookieParser())
 
@@ -56,11 +59,11 @@ app.post("/login", async (req, res) => {
         if (isPasswordValid) {
 
             // Create a JWT Token
-            const token = await jwt.sign({_id:user._id},"SUBH@Tinder123");
+            const token = await jwt.sign({ _id: user._id }, "SUBH@Tinder123");
 
             // Add the token to cookie and send the response back to user
-            res.cookie('token',token);
-            
+            res.cookie('token', token);
+
             res.send("Login Successfull✅")
             return;
         }
@@ -75,21 +78,30 @@ app.post("/login", async (req, res) => {
 })
 
 // GET Profile API
-app.get("/profile",async (req,res)=>{
-    const cookies = req.cookies
+app.get("/profile", async (req, res) => {
 
-    const {token} = cookies
+    try {
+        const cookies = req.cookies
 
-    // Validate my token
-    const decodedMessage = await jwt.verify(token,"SUBH@Tinder123");
-    console.log(decodedMessage._id)
+        const { token } = cookies
+        if (!token) {
+            throw new Error("Invalid Token")
+        }
 
-    const userId = await User.findById(decodedMessage._id)
-    console.log(userId)
+        // Validate my token
+        const decodedMessage = await jwt.verify(token, "SUBH@Tinder123");
+        console.log(decodedMessage._id)
 
-    console.log(cookies)
-    res.send("Reading Cookies")
-   
+        const userId = await User.findById(decodedMessage._id)
+        if (!userId) {
+            throw new Error("User Not Present")
+        }
+        res.send(userId)
+    }
+    catch (err) {
+        res.status(400).send("Error: " + err.message)
+    }
+
 })
 
 // ----------------GET user by Name------------
