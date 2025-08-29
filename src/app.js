@@ -8,7 +8,7 @@ const { userAuth } = require("./middlewares/auth")
 
 // TO read the cookies from req.cookies we need cookie-parser
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken")
+
 
 // We use express.json() bcz we parse it to json for reading the req.body
 app.use(express.json())
@@ -55,11 +55,12 @@ app.post("/login", async (req, res) => {
         if (!user) {
             throw new Error("Invalid Credentials")
         }
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await user.passwordHasher(password)
+
         if (isPasswordValid) {
 
             // Create a JWT Token
-            const token = await jwt.sign({ _id: user._id }, "SUBH@Tinder123", { expiresIn: "1d" });
+            const token = await user.getJWT();
 
             // Add the token to cookie and send the response back to user
             res.cookie('token', token);
