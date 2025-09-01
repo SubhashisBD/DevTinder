@@ -1,24 +1,24 @@
 # Dev Tinder API
 
-authRouter
+## authRouter
 -POST /signup
 -POST /login
 -POSt /logout
 
-profileRouter
+## profileRouter
 -GET/profile/View
 -PATCH/profile/edit
 -PATCH/profile/password
 
-connectionRequestRouter
+## connectionRequestRouter
 -POST/request/send/interested/:userId
 -POST/request/send/ignore/:userId
 -POST/request/review/accepted/:requestId
 -POST/request/review/rejected/:requestId
 
-userRouter
+## userRouter
 -GET/user/connections
 -GET/user/requests
 -GET/user/feed - Gets you profiles of other users on the platform
 
-status:ignored,Intrested,accepted,rejected
+status:ignore,intrested,accepted,rejected
