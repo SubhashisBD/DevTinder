@@ -25,7 +25,8 @@ const connectionsRequest = new mongoose.Schema(
         timestamps: true,
     },
 );
-// Why not to create Index for every field
+
+//* Why not to create Index for every field
 // * Making Index to make query Faster and why need?
 
 connectionsRequest.index({ formUserId: 1, toUserId: 1 })

@@ -46,4 +46,35 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async (req, res)
     }
 })
 
+requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, res) => {
+
+    try {
+        const loggedInUser = req.user
+        const { status, requestId } = req.params
+
+        const allowedStatus = ["rejected", "accepted"]
+        if (!allowedStatus.includes(status)) {
+            return res.status(400).json({ message: "Status not allowed" });
+        }
+
+        const isPresent = await connectionsRequest.findById({
+            _id: requestId,
+            toUserId: loggedInUser._id,
+            status: "interested",
+        })
+        if (!isPresent) {
+            throw new Error("Connection request is not Present")
+        }
+        connectionsRequest.status = status
+
+        await connectionsRequest.save()
+
+        res.json({ message: "Connnection Request accept" })
+    }
+    catch (err) {
+        res.send("ERROR: " + err.message)
+    }
+
+})
+
 module.exports = requestRouter; 
