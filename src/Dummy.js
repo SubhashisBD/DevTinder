@@ -60,11 +60,11 @@ app.use("/userr", userAuth, (req, res) => {
 
 // * ERROR HANDLING app.use("/",err,req,res,next)
 
-app.use("/",(err,req,res,next)=>{
-if (err){
-    // Log error
-    res.status(500).send("Something Went Wrong")
-}
+app.use("/", (err, req, res, next) => {
+    if (err) {
+        // Log error
+        res.status(500).send("Something Went Wrong")
+    }
 })
 
 // app.use((req, res) => {
@@ -72,5 +72,73 @@ if (err){
 // });
 
 app.get('/', (req, res) => {
-  throw new Error('BROKEN') // Express will catch this on its own.
+    throw new Error('BROKEN') // Express will catch this on its own.
 })
+
+
+
+
+function x() {
+    for (var i = 1; i <= 5; i++) {
+        setTimeout(function () {
+            console.log(i);
+        }, i * 1000);
+
+    }
+    console.log("ABCD")
+}
+
+x();
+
+
+function counter() {
+    let count = 0
+    return function () {
+        count++
+        return count;
+    }
+}
+const increment = counter();
+
+const radius = [1, 12, 3, 4, 5]
+
+const area = function (radius) {
+    return Math.PI * radius * radius
+}
+
+const calculate = function (radius, area) {
+    const output = [];
+    for (let i = 0; i < radius.length; i++) {
+        output.push(area(radius[i]))
+    }
+    return output;
+}
+
+console.log(calculate(radius, area))
+
+
+const arr = [1, 2, 3, 4, 5, 6]
+
+function double(x) {
+    return 2 * x;
+}
+
+const dbleArr = arr.map(double)
+console.log(dbleArr)
+
+
+const check = arr.filter((x) => x *2)
+console.log(check)
+
+
+const calculate2 = arr.reduce((acc,curr)=>{
+    acc = acc+ curr;
+    return acc;
+},0)
+
+
+const promise = createOrder(Cart)
+
+promise.then(function(){
+   proceedToPayment(orderId)
+});
