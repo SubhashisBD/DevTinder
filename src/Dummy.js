@@ -127,18 +127,95 @@ const dbleArr = arr.map(double)
 console.log(dbleArr)
 
 
-const check = arr.filter((x) => x *2)
+const check = arr.filter((x) => x * 2)
 console.log(check)
 
 
-const calculate2 = arr.reduce((acc,curr)=>{
-    acc = acc+ curr;
+const calculate2 = arr.reduce((acc, curr) => {
+    acc = acc + curr;
     return acc;
-},0)
+}, 0)
 
-
+// *Promise .then .catch
 const promise = createOrder(Cart)
 
-promise.then(function(){
-   proceedToPayment(orderId)
+promise.then(function () {
+    proceedToPayment(orderId)
 });
+
+
+function createOrder(cart) {
+    const pr = new promise(function (resolve, reject) {
+        if (!validate(cart)) {
+            const err = Error("Cart is not Valid")
+            reject(errr)
+        }
+    })
+
+    return pr;
+}
+
+const p = new promise(function (resolve, reject) {
+    resolve("Promise Resolved Value!");
+})
+
+async function xyz() {
+    return "Namaste"
+    // return p;
+}
+console.log(xyz())
+const data = xyz();
+
+data.then(res => console.log(res));
+
+const p1 = new promise(function (resolve, reject) {
+    setTimeout(() => {
+        resolve("It is resolve!")
+    }, 5000)
+
+})
+
+async function handlePromise() {
+    const data = await fetch("https/result/api.com");
+    const promise = await data.json();
+    console.log(promise)
+}
+handlePromise().catch(err => console.log(err))
+
+fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+
+
+
+async function handleTry() {
+    for (let i = 1; i <= 3; i++) {
+        try {
+            const url = "https://api.example.com/data";
+            const response = await fetch(url)
+            if (!response.ok) {
+                throw new Error("Data Could not be fetch!" + response.status)
+            }
+            const data = await response.data();
+            console.log(data)
+            return;
+        }
+        catch (err) {
+            console.log(`Attempt ${i} failed :${err.message}`)
+            if (i == 3) {
+                console.log("Error!" + err.message)
+            }
+        }
+    }
+}
+
+handleTry();
+
+async function demo() {
+  console.log("Start");
+  setTimeout(()=>{},2000)
+  console.log("End");
+}
+
+demo();
