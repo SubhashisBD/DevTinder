@@ -213,9 +213,11 @@ async function handleTry() {
 handleTry();
 
 async function demo() {
-  console.log("Start");
-  setTimeout(()=>{},2000)
-  console.log("End");
+    console.log("Start");
+    setTimeout(() => { }, 2000)
+    console.log("End");
 }
 
 demo();
+
+
