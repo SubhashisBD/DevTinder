@@ -221,3 +221,44 @@ async function demo() {
 demo();
 
 
+const findVowel = (str) => {
+    let count = 0;
+    let vowel = ['a', 'e', 'i', 'o', 'u']
+    for (let i = 0; i < str.length; i++) {
+        if (vowel.includes(str[i].toLowerCase())) {
+            count++;
+        }
+    }
+    return count;
+}
+let str = "sfnnjsnfjs";
+findVowel(str)
+
+
+for(let char of str.toLowerCase())
+
+    // a.split.("").sort().join("")
+
+    function binarySearch(arr,value){
+        let start = arr[0]
+        let end = arr[arr.length-1]
+        while(start<end){
+            let mid = Math.floor(start+end)/2;
+            if(start[mid]===value){
+                return mid;
+            }
+            else if(start[mid]<value){
+                start=mid+1
+            }
+            else{
+                end=mid-1
+            }
+        }
+    }
+
+    let ar1 = [1,2,3,4,5,6]
+    binarySearch(ar1,5)
+
+    for(let i=0;i<10;i++){
+        setTimeout(()=>console.log(i),0)
+    }         
