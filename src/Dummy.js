@@ -235,30 +235,160 @@ let str = "sfnnjsnfjs";
 findVowel(str)
 
 
-for(let char of str.toLowerCase())
+for (let char of str.toLowerCase())
 
     // a.split.("").sort().join("")
 
-    function binarySearch(arr,value){
+    function binarySearch(arr, value) {
         let start = arr[0]
-        let end = arr[arr.length-1]
-        while(start<end){
-            let mid = Math.floor(start+end)/2;
-            if(start[mid]===value){
+        let end = arr[arr.length - 1]
+        while (start < end) {
+            let mid = Math.floor(start + end) / 2;
+            if (start[mid] === value) {
                 return mid;
             }
-            else if(start[mid]<value){
-                start=mid+1
+            else if (start[mid] < value) {
+                start = mid + 1
             }
-            else{
-                end=mid-1
+            else {
+                end = mid - 1
             }
         }
     }
 
-    let ar1 = [1,2,3,4,5,6]
-    binarySearch(ar1,5)
+let ar1 = [1, 2, 3, 4, 5, 6]
+binarySearch(ar1, 5)
 
-    for(let i=0;i<10;i++){
-        setTimeout(()=>console.log(i),0)
-    }         
+for (let i = 0; i < 10; i++) {
+    setTimeout(() => console.log(i), 0)
+}
+
+// --------------------------------------------------
+
+async function tryThree() {
+
+    for (let i = 0; i < 3; i++) {
+        try {
+            const url = "http/api/example.com";
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Data not fetch");
+            }
+            const data = await response.json();
+            console.log(data);
+            return;
+        }
+        catch (err) {
+            console.log(`Fetching ${i}th times`);
+            if (i == 2) {
+                console.log("ERROR" + err.message);
+            }
+
+        }
+    }
+
+}
+
+
+tryThree()
+
+// --------------------------------
+
+//*Rest
+function add(...nums) {
+    console.log(nums)
+    return nums.reduce((acc, curr) => acc + curr, 0)
+}
+
+console.log(add(50, 100, 311, 353));
+
+//*Spread
+function add(nums) {
+    console.log(nums)
+    return nums.reduce((acc, curr) => acc + curr, 0)
+}
+const arr3 = [50, 100, 311, 353]
+console.log(add(...arr3));
+
+let word = "javascript";
+const sort = word.split("").sort().join("");
+
+let arr4 = [33, 53, 52, 21, 5, 5]
+// console.log(arr4.splice(indexed,how may ele to remove,element to pushed))
+
+arr4.forEach((nums) => console.log(nums * 2))
+
+// *When a function is called as a method of an object, this refers to the object the method is called on. This is the most common use case.
+const person = {
+    name: "Subhashis",
+    greet: function () {
+        console.log("Hello" + this.name)
+    }
+}
+person.greet();
+
+// *Closure
+function counter(){
+    let x=20;
+    function count(){
+        x=x+1;
+        console.log(x);
+    }
+    return count
+}
+const closure = counter()
+console.log(closure())
+
+// *HOF
+
+const number = [1,2,3,4,5]
+const double = (number)=>number*2
+
+const doubleNumber = number.map(double)
+
+console.log(doubleNumber())
+
+// ## Compile-time Polymorphism (Function Overloading)
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// class Print {
+//     public:
+//     void print(int i){
+//         cout<<i<<endl;
+//     }
+//     void print(double j){
+//         cout<<j<<endl;
+//     }
+//       void print(string k){
+//         cout<<k<<endl;
+//     }
+// };
+
+// int main(){
+//     Print obj;
+//     obj.print(5);
+//     obj.print(5.5);
+//     obj.print("subh");
+//     return 0;
+// }
+
+// * Class Based Component 
+// I havent use this but I know we will receive props thorugh constructor in my class
+// Constructor()->render->ComponentDidMount(api call)
+class welcomes extends React.Component{
+    // constructor(props){
+    // super(props)
+    }
+    componentDidMount(){
+
+    }
+    render(){
+
+        return <h2>{this.props.name}</h2>
+    }
+}
+//* why react is fast?
+// * Life Cycle React Component
+// *-MOUNTING PHASE--ANy class component is loaded Constructor is called -render happen read all the jsx that is written and dom manipulation happens -like virtual checks with the real dom and DOm operation happen in commit phase and also in the same commit phase next componentDidMount() occurs where we fetch api or anythings after the dom render and then update it. 
+// *Updating phase-- when data came from componentmout it update the state and based on the again due to diff algorithm and recoincilation cycle  vdom and rdom checks and update the uI and at last UNMOUNTING PHASE -when component dissaper/disable  from the html page then it call unmounting (Basically on going to another page it is called).
