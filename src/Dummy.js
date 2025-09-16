@@ -376,18 +376,18 @@ console.log(doubleNumber())
 // * Class Based Component 
 // I havent use this but I know we will receive props thorugh constructor in my class
 // Constructor()->render->ComponentDidMount(api call)
-class welcomes extends React.Component{
-    // constructor(props){
-    // super(props)
-    }
-    componentDidMount(){
+// class welcomes extends React.Component{
+//      constructor(props){
+//      super(props)
+//     }
+//     componentDidMount(){
 
-    }
-    render(){
+//     }
+//     render(){
 
-        return <h2>{this.props.name}</h2>
-    }
-}
+//         return <h2>{this.props.name}</h2>
+//     }
+// }
 //* why react is fast?
 // * Life Cycle React Component
 // *-MOUNTING PHASE--ANy class component is loaded Constructor is called -render happen read all the jsx that is written and dom manipulation happens -like virtual checks with the real dom and DOm operation happen in commit phase and also in the same commit phase next componentDidMount() occurs where we fetch api or anythings after the dom render and then update it. 
