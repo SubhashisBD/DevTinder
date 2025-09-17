@@ -16,14 +16,12 @@ app.use("/", authRouter)
 app.use("/", profileRouter)
 app.use("/", requestRouter)
 
-
 connectDB()
     .then(() => {
         console.log("Database Connected SuccessFully ✅");
         app.listen(7777, () => {
             console.log("Server Start")
         })
-
     })
     .catch((err) => {
         console.log("Database not Connected")
