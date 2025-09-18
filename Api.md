@@ -13,6 +13,10 @@
 ## connectionRequestRouter
 -POST/request/send/interested/:userId
 -POST/request/send/ignore/:userId
+<!-- Single API for both ignore & interested -->
+-POST/request/send/:status/:userId
+
+
 -POST/request/review/accepted/:requestId
 -POST/request/review/rejected/:requestId
 

@@ -17,8 +17,7 @@ const connectionsRequest = new mongoose.Schema(
             enum: {
                 values: ["ignored", "interested", "accepted", "rejected"],
                 message: `{VALUE} is incorrect in status type`,
-            },
-            required: true
+            }
         },
     },
     {
@@ -29,8 +28,10 @@ const connectionsRequest = new mongoose.Schema(
 //* Why not to create Index for every field
 // * Making Index to make query Faster and why need?
 
+// Compound Index Basically to query on multiple things at a time and it will be very fast on millions of record at a time.
 connectionsRequest.index({ formUserId: 1, toUserId: 1 })
 
+// This function will run before every save operation
 connectionsRequest.pre("save", function (next) {
     const connectionsRequest = this
     if (connectionsRequest.formUserId.equals(connectionsRequest.formUserId)) {
