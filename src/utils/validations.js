@@ -19,10 +19,15 @@ const validateEditProfile = (req) => {
 
     const isEditAllowed = Object.keys(req.body).every((fields) => isAllowedEdit.includes(fields))
     const about = req.body.about;
-    if (about && about.length < 100){
+    if (!about) {
         return isEditAllowed;
     }
+    if (about && about.length < 100) {
         return isEditAllowed;
+    }
+    else {
+        return false;
+    }
 }
 
 module.exports = { validateSignUpData, validateEditProfile }

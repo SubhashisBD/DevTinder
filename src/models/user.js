@@ -7,13 +7,14 @@ const userSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        minLenght: 3,
-        maxLength: 15
+        index:true,
+        minLenght: 5,
+        maxLength: 20
     },
     lastName: {
         type: String,
-        minLenght: 3,
-        maxLength: 15
+        minLenght: 5,
+        maxLength: 20
     },
     emailId: {
         type: String,
@@ -32,6 +33,10 @@ const userSchema = mongoose.Schema({
     },
     gender: {
         type: String,
+        // enum:{
+        //     value:["male","female","other"],
+        //     message:`{VALUE} is not supported in gender`
+        // }
         // *For validate it will work on new user but for old we have to enabled it.
         validate(value) {
             if (!["male", "female", "other"].includes(value)) {
